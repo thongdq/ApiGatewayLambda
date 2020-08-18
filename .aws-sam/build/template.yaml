@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'AWS
+
+  Sample SAM Template for AWS
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+  Api:
+    EndpointConfiguration: REGIONAL
+    Name: TaAPI
+Resources:
+  TAProjectSaveFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: TAProjectSaveFunction
+      Handler: ta.lambda.ProjectLambda::handleRequest
+      Runtime: java8
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        SaveProject:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: post
+  TAProjectUpdateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: TAProjectUpdateFunction
+      Handler: ta.lambda.ProjectLambda::handleRequestUpdate
+      Runtime: java8
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        SaveProject:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: put
+  TAProjectDeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: TAProjectDeleteFunction
+      Handler: ta.lambda.ProjectLambda::handleRequestDelete
+      Runtime: java8
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        SaveProject:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: delete
